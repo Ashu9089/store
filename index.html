@@ -3,41 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Visiting Card</title>
+    <title>A2V Digital Card</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #6C63FF;
+            --secondary: #4D44DB;
+            --accent: #FF6584;
+            --dark: #2D3748;
+            --light: #F7FAFC;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            background-color: #f5f5f5;
             padding: 20px;
         }
+        
+        .card-container {
+            perspective: 1000px;
+            width: 100%;
+            max-width: 380px;
+        }
+        
         .card {
-            max-width: 350px;
+            width: 100%;
             background: white;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            text-align: center;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+            position: relative;
         }
-        .gif-container {
+        
+        .card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .card-header {
+            position: relative;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow: hidden;
+        }
+        
+        .card-header::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(45deg);
+        }
+        
+        .profile-gif {
             width: 100%;
             border-radius: 10px;
-            overflow: hidden;
+            object-fit: contain;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+            transition: all 0.3s ease;
+            border: 3px solid white;
+        }
+        
+        .profile-gif:hover {
+            transform: scale(1.02);
+        }
+        
+        .card-body {
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .name {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+        
+        .title {
+            font-size: 16px;
+            color: var(--primary);
+            font-weight: 600;
             margin-bottom: 20px;
         }
-        .gif-container img {
-            width: 100%;
-            height: auto;
+        
+        .divider {
+            width: 50px;
+            height: 3px;
+            background: var(--accent);
+            margin: 0 auto 20px;
+            border-radius: 3px;
         }
-        .social-icons {
+        
+        .social-links {
             display: flex;
             justify-content: center;
             gap: 15px;
             margin-bottom: 25px;
         }
-        .social-icon {
+        
+        .social-link {
             width: 40px;
             height: 40px;
             border-radius: 50%;
@@ -45,77 +127,126 @@
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 20px;
+            font-size: 18px;
             text-decoration: none;
-            transition: transform 0.3s;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-        .social-icon:hover {
-            transform: scale(1.1);
+        
+        .social-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
-        .instagram {
-            background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
-        }
-        .whatsapp {
-            background: #25D366;
-        }
-        .facebook {
-            background: #1877F2;
-        }
-        .gmail {
-            background: #D44638;
-        }
-        .twitter {
-            background: #1DA1F2;
-        }
-        .website {
-            background: #4CAF50;
-        }
+        
+        .instagram { background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D); }
+        .whatsapp { background: #25D366; }
+        .facebook { background: #1877F2; }
+        .gmail { background: #D44638; }
+        .twitter { background: #1DA1F2; }
+        .website { background: #4CAF50; }
+        
         .download-btn {
-            background: #4CAF50;
+            display: inline-block;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
             color: white;
-            border: none;
-            padding: 12px 25px;
+            padding: 12px 30px;
             border-radius: 30px;
             font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s;
-            margin-top: 10px;
+            font-weight: 600;
             text-decoration: none;
-            display: inline-block;
+            margin-top: 15px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
+            position: relative;
+            overflow: hidden;
         }
+        
         .download-btn:hover {
-            background: #45a049;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(108, 99, 255, 0.4);
+        }
+        
+        .download-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0.3), rgba(255,255,255,0));
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .download-btn:hover::after {
+            transform: translateX(100%);
+        }
+        
+        .watermark {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 12px;
+            color: rgba(0,0,0,0.2);
+            font-weight: 600;
+        }
+        
+        @media (max-width: 480px) {
+            .card-body {
+                padding: 25px 20px;
+            }
+            
+            .name {
+                font-size: 22px;
+            }
+            
+            .card-header {
+                padding: 15px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="card">
-        <div class="gif-container">
-            <img src="https://res.cloudinary.com/ashu0926/image/upload/v1751618426/ASHISH_SINGH_hd8oui.gif" alt="Profile GIF">
+    <div class="card-container">
+        <div class="card">
+            <div class="card-header">
+                <img src="https://res.cloudinary.com/ashu0926/image/upload/v1751618426/ASHISH_SINGH_hd8oui.gif" alt="Profile" class="profile-gif">
+            </div>
+            
+            <div class="card-body">
+                <h1 class="name">Ashish Singh</h1>
+                <p class="title">Digital Visiting Card </p>
+                
+                <div class="divider"></div>
+                
+                <div class="social-links">
+                    <a href="https://instagram.com/a2verified" class="social-link instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/919140157922?text=Hello!%20I%20got%20your%20contact%20from%20your%20digital%20visiting%20card." class="social-link whatsapp" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    <a href="YOUR_FACEBOOK_PAGE_LINK" class="social-link facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="mailto:YOUR_EMAIL@gmail.com" class="social-link gmail" target="_blank"><i class="far fa-envelope"></i></a>
+                    <a href="https://twitter.com/ashu26" class="social-link twitter" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="YOUR_WEBSITE_LINK" class="social-link website" target="_blank"><i class="fas fa-globe"></i></a>
+                </div>
+                
+                <a href="https://res.cloudinary.com/ashu0926/image/upload/v1751620690/1_u6u3dn.jpg?force_download=true" class="download-btn" download="A2V_Visiting_Card">
+                    <i class="fas fa-download"></i> Download Card
+                </a>
+                
+                <div class="watermark">A2V Digital</div>
+            </div>
         </div>
-        
-        <div class="social-icons">
-            <a href="https://instagram.com/a2verified" class="social-icon instagram" target="_blank">📷</a>
-            <a href="https://wa.me/919140157922?text=Hello!%20I%20got%20your%20contact%20from%20your%20digital%20visiting%20card." class="social-icon whatsapp" target="_blank">💬</a>
-            <a href="YOUR_FACEBOOK_PAGE_LINK" class="social-icon facebook" target="_blank">f</a>
-            <a href="mailto:YOUR_EMAIL@gmail.com" class="social-icon gmail" target="_blank">✉</a>
-            <a href="https://twitter.com/ashu26" class="social-icon twitter" target="_blank">𝕏</a>
-            <a href="YOUR_WEBSITE_LINK" class="social-icon website" target="_blank">🌐</a>
-        </div>
-        
-        <!-- Correct Download Button -->
-        <a href="https://res.cloudinary.com/ashu0926/image/upload/v1751620690/1_u6u3dn.jpg
-            ?force_download=true" class="download-btn" download="A2v_Visiting_Card">Download Visiting Card</a>
     </div>
 
-    <!-- Additional JavaScript to ensure download on all devices -->
     <script>
+        // Enhanced download functionality
         document.querySelector('.download-btn').addEventListener('click', function(e) {
-            // For mobile devices, this helps trigger the download
-            setTimeout(function() {
-                window.location.href = "https://res.cloudinary.com/ashu0926/image/upload/v1751620690/1_u6u3dn.jpg?force_download=true";
-            }, 100);
+            // For better mobile download experience
+            if (/Android|iPhone|iPad/i.test(navigator.userAgent)) {
+                e.preventDefault();
+                window.open(this.href, '_blank');
+            }
         });
     </script>
 </body>
