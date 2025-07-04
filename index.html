@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Visiting Card</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+        .card {
+            max-width: 350px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+        }
+        .gif-container {
+            width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .gif-container img {
+            width: 100%;
+            height: auto;
+        }
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+        .social-icon:hover {
+            transform: scale(1.1);
+        }
+        .instagram {
+            background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
+        }
+        .whatsapp {
+            background: #25D366;
+        }
+        .facebook {
+            background: #1877F2;
+        }
+        .gmail {
+            background: #D44638;
+        }
+        .twitter {
+            background: #1DA1F2;
+        }
+        .website {
+            background: #4CAF50;
+        }
+        .download-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 10px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .download-btn:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="gif-container">
+            <img src="https://res.cloudinary.com/ashu0926/image/upload/v1751618426/ASHISH_SINGH_hd8oui.gif" alt="Profile GIF">
+        </div>
+        
+        <div class="social-icons">
+            <a href="https://instagram.com/a2verified" class="social-icon instagram" target="_blank">📷</a>
+            <a href="https://wa.me/919140157922?text=Hello!%20I%20got%20your%20contact%20from%20your%20digital%20visiting%20card." class="social-icon whatsapp" target="_blank">💬</a>
+            <a href="YOUR_FACEBOOK_PAGE_LINK" class="social-icon facebook" target="_blank">f</a>
+            <a href="mailto:YOUR_EMAIL@gmail.com" class="social-icon gmail" target="_blank">✉</a>
+            <a href="https://twitter.com/ashu26" class="social-icon twitter" target="_blank">𝕏</a>
+            <a href="YOUR_WEBSITE_LINK" class="social-icon website" target="_blank">🌐</a>
+        </div>
+        
+        <!-- Correct Download Button -->
+        <a href="https://res.cloudinary.com/ashu0926/image/upload/v1751618647/1_q6tlw9.png?force_download=true" class="download-btn" download="A2v_Visiting_Card">Download Visiting Card</a>
+    </div>
+
+    <!-- Additional JavaScript to ensure download on all devices -->
+    <script>
+        document.querySelector('.download-btn').addEventListener('click', function(e) {
+            // For mobile devices, this helps trigger the download
+            setTimeout(function() {
+                window.location.href = "https://res.cloudinary.com/ashu0926/image/upload/v1751618647/1_q6tlw9.png?force_download=true";
+            }, 100);
+        });
+    </script>
+</body>
+</html>
